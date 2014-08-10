@@ -6,6 +6,7 @@ var Tavern = require("./Tavern");
 var requestAnimationFrame = require("raf");
 var maps = require("./maps");
 var BloodySoil = require("./BloodySoil");
+var Night = require("./shaders/Night");
 
 var winnerParchmentTexture = PIXI.Texture.fromImage("/assets/img/winner_parchment.png");
 var heroTextures = [
@@ -85,11 +86,28 @@ GameBoardRender.prototype = {
     this._stopped ++;
   },
 
+  updateLights: function () {
+    var lights = [];
+    var lightingDistance = 8 * this.tileSize;
+    var lightIntensity = 1.0;
+    this.heroes.forEach(function (hero) {
+      var x = hero.position.x + 32;
+      var y = hero.position.y + 32;
+      lights.push(x);
+      lights.push(this.boardWidth - y);
+      lights.push(lightingDistance);
+      lights.push(lightIntensity);
+    }, this);
+    this.nightEffect.lights = lights;
+  },
+
   // Game render loop
   render: function () {
+    this.updateLights();
     this.heroes.forEach(function (hero) {
       hero.render();
     });
+
     this.mines.forEach(function (mine) {
       mine.render();
     });
@@ -169,6 +187,12 @@ GameBoardRender.prototype = {
     }
 
     this.gameContainer = new PIXI.DisplayObjectContainer();
+
+    this.nightEffect = new Night();
+    this.nightEffect.night = 1;
+    this.gameContainer.filters = [ this.nightEffect ];
+    window.nightEffect = this.nightEffect;
+
     this.gameContainer.x = this.borderSize;
     this.gameContainer.y = this.borderSize;
     this.gameContainer.addChild(this.bgContainer = new PIXI.DisplayObjectContainer());

@@ -58,8 +58,11 @@ function Mine (owner) {
   this.goblin = new PIXI.Sprite(goblinTexture);
   this.goblin.position.x = -4;
   this.goblin.position.y = -8;
+  setSpriteOwner(this.previousSprite, owner);
   setSpriteOwner(this.currentSprite, owner);
+  /*
   this.addChild(this.previousSprite);
+  */
   this.addChild(this.currentSprite);
   this.addChild(this.goblin);
   this.updateOwner({ owner: owner, domination: 0 });
