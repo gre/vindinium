@@ -9,19 +9,19 @@ var Night = function() {
   this.uniforms = {
     lights: { type: '4fv', value: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0] },
     torchColorMapping: { type: 'mat3', value: [
-      1.2, 0.0, 0.0,
-      0.0, 0.9, 0.0,
+      1.1, 0.0, 0.2,
+      0.0, 0.8, 0.1,
       0.0, 0.0, 0.5
     ] },
     nightColorMapping: { type: 'mat3', value: [
-      0.2, 0.0, 0.0,
-      0.0, 0.3, 0.0,
-      0.0, 0.0, 0.5
+      0.2, 0.0, 0.1,
+      0.0, 0.3, 0.1,
+      0.0, 0.0, 0.6
     ] },
     night: { type: '1f', value: 1 },
-    constantAttenuation: { type: '1f', value: 2 },
-    linearAttenuation: { type: '1f', value: 2 },
-    quadraticAttenuation: { type: '1f', value: 4 }
+    constantAttenuation: { type: '1f', value: 1.5 },
+    linearAttenuation: { type: '1f', value: 3 },
+    quadraticAttenuation: { type: '1f', value: 5 }
   };
 
   this.fragmentSrc = [
